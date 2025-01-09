@@ -31,8 +31,10 @@ app.get("/", (req: express.Request, res: express.Response) => {
 
 // Routes
 const createRoute = require("./routes/create")
+const docsRoute = require("./routes/docs")
 
 app.use("/create", createRoute)
+app.use("/docs", docsRoute)
 
 // Run app
 app.listen(port, () => {
