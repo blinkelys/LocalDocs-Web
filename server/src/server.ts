@@ -1,22 +1,27 @@
 import express from 'express'
-const cors = require("cors")
-const bodyParser = require("body-parser")
+import cors from "cors";
+import bodyParser from "body-parser";
+import connectDB from './db';
 
 // App Config
 const app = express()
 const port = 5000
+const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/localdocs"
 
+// Connect to MongoDB
+connectDB(MONGO_URI);
+
+// Cors and such
 let corsConfig = {
-    origin: 'http://localhost/',
+    origin: 'http://localhost:3000',
     optionsSuccessStatus: 200
 }
-
-app.use('/static', express.static('public'))
 
 // Middleware
 app.use(cors(corsConfig))
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use('/static', express.static('public'))
 
 
 // Local Routes
@@ -25,9 +30,9 @@ app.get("/", (req: express.Request, res: express.Response) => {
 })
 
 // Routes
-const example_route = require("./routes/example_route")
+const createRoute = require("./routes/create")
 
-app.use("/example_route", example_route)
+app.use("/create", createRoute)
 
 // Run app
 app.listen(port, () => {
