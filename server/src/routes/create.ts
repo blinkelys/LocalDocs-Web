@@ -2,7 +2,7 @@ import express from 'express'
 const router = express.Router()
 import Doc from '../models/Doc'
 
-router.post("/", async (req: express.Request, res: express.Response)=> {
+router.post("/", async (req: express.Request, res: express.Response) => {
     const data = req.body;
 
     console.log(data);
